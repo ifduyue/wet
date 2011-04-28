@@ -11,10 +11,8 @@ class Renren:
     log_comment_action = "http://blog.renren.com/PostComment.do"
     cookie_file = "renren_cookie"
     
-    def __init__(self, username=None, password=None):
+    def __init__(self, username, password):
         self.set_fucking_info(username, password)
-        
-    def set_fucking_info(self, username, password):
         self.username = username
         self.password = password
         self.cookie_file = username + '.renren_cookie'
@@ -31,7 +29,6 @@ class Renren:
         c.perform()
         m = re.search("get_check:'([^']*)'", b.getvalue())
         self.token = m.group(1)
-        print self.token
         
     def update(self, status):
         b = StringIO.StringIO()

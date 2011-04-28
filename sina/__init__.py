@@ -25,7 +25,7 @@ class Sina:
     def login(self):
         b, c = self.reset()
         c.setopt(pycurl.COOKIEJAR, self.cookie_file)
-        c.setopt(pycurl.URL, "https://login.sina.com.cn/sso/login.php")
+        c.setopt(pycurl.URL, "http://login.sina.com.cn/sso/login.php")
         c.setopt(pycurl.REFERER, 'http://t.sina.com.cn/')
         c.setopt(pycurl.POST, True)
         c.setopt(pycurl.FOLLOWLOCATION, True)
