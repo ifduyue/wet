@@ -1,0 +1,5 @@
+twitter_user = ''
+sina_user = ''
+sina_passwd = ''
+renren_user = ''
+renren_passwd = ''
