@@ -12,7 +12,6 @@ class Renren:
     cookie_file = "renren_cookie"
     
     def __init__(self, username, password):
-        self.set_fucking_info(username, password)
         self.username = username
         self.password = password
         self.cookie_file = username + '.renren_cookie'

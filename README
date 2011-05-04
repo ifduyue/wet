@@ -1,4 +1,4 @@
-sync twitter status to other sites (sina weibo, renren, etc..)
+sync twitter status to other sites (sina weibo, renren, douban, etc..)
 
 wet = we t, 我推!
 
@@ -12,7 +12,8 @@ wet = we t, 我推!
     1. 编辑conf.py, 输入要同步的twitter帐号
     2. 同步renren: 编辑conf.py, 填入renren的帐号, 密码
     3. 同步sina: 编辑conf.py, 填入sina的帐号, 密码
-    4. 把main.py加入crontab, 5分钟一次就好
+    4. 同步douban: 编辑conf.py, 填入douban的帐号, 密码
+    5. 把main.py加入crontab, 5分钟一次就好
 
 # TODO
     * [DONE] 把sina的oauth改成python模拟发推, 不然xx会就被封了. 
