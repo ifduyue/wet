@@ -1,6 +1,7 @@
 from renren import Renren
 from sina import Sina
 from douban import Douban
+from facebook import Facebook
 from twitter import get_twitter_status
 from lib import *
 from conf import *
@@ -19,6 +20,11 @@ def pub2douban(status):
     douban = Douban(douban_user, douban_passwd)
     douban.login()
     douban.update(status)
+
+def pub2facebook(status):
+    facebook = Facebook(facebook_user, facebook_passwd)
+    facebook.login()
+    facebook.update(status)
 
 
 def main():
@@ -42,6 +48,13 @@ def main():
                 save_prev_time(twitter_user, pubdate)
             except Exception, e:
                 log('pub2douban error: %s' % str(e))
+
+        if facebook_user and facebook_passwd:
+            try:
+                pub2facebook(status)
+                save_prev_time(twitter_user, pubdate)
+            except Exception, e:
+                log('pub2facebook error: %s' % str(e))
         
         if renren_user and renren_passwd:
             try:
