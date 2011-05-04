@@ -17,7 +17,7 @@ class Sina:
     def reset(self):
         b = self.b
         c = self.c
-        b.truncate()
+        b.truncate(0)
         c.reset()
         c.setopt(pycurl.WRITEFUNCTION, b.write)
         return b,c
