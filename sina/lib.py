@@ -25,6 +25,8 @@ def set_conf(confs):
     return False
 
 def get_api():
+    import sys, os.path
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file)))
     from weibopy import OAuthHandler, API, WeibopError
     c = get_conf()
     try:
