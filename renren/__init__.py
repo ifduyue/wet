@@ -96,7 +96,3 @@ class Renren:
         c.perform()
         return b.getvalue()
         
-def pub2renren(status):
-    renren = Renren(renren_user, renren_passwd)
-    renren.login()
-    renren.update(status)

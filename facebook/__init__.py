@@ -80,7 +80,3 @@ class Facebook:
         c.perform()
         return b.getvalue()
         
-def pub2facebook(status):
-    facebook = Facebook(facebook_user, facebook_passwd)
-    facebook.login()
-    facebook.update(status)
