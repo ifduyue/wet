@@ -65,3 +65,8 @@ class Douban:
         }))
         c.perform()
         return b.getvalue()
+        
+def pub2douban(status):
+    douban = Douban(douban_user, douban_passwd)
+    douban.login()
+    douban.update(status)

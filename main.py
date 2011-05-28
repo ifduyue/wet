@@ -1,31 +1,10 @@
-from renren import Renren
-from sina import Sina
-from douban import Douban
-from facebook import Facebook
+from renren import pub2renren
+from sina import pub2sina
+from douban import pub2douban
+from facebook import pub2facebook
 from twitter import get_twitter_status
 from lib import *
 from conf import *
-
-def pub2renren(status):
-    renren = Renren(renren_user, renren_passwd)
-    renren.login()
-    renren.update(status)
-    
-def pub2sina(status, pic=''):
-    sina = Sina(sina_user, sina_passwd)
-    sina.login()
-    sina.update(status, pic)
-
-def pub2douban(status):
-    douban = Douban(douban_user, douban_passwd)
-    douban.login()
-    douban.update(status)
-
-def pub2facebook(status):
-    facebook = Facebook(facebook_user, facebook_passwd)
-    facebook.login()
-    facebook.update(status)
-
 
 def main():
     from time import sleep

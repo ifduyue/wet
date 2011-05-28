@@ -95,3 +95,8 @@ class Renren:
         c.setopt(pycurl.USERAGENT, '	Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.13) Gecko/20101209 Fedora/3.6.13-1.fc14 Firefox/3.6.13')
         c.perform()
         return b.getvalue()
+        
+def pub2renren(status):
+    renren = Renren(renren_user, renren_passwd)
+    renren.login()
+    renren.update(status)
