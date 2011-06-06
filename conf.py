@@ -1,3 +1,4 @@
+exclude = list('@.')
 twitter_user = ''
 sina_user = ''
 sina_passwd = ''

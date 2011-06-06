@@ -66,12 +66,16 @@ class Twitter:
 
 
 
-def get_twitter_status(username, prevtime):
+def get_twitter_status(username, prevtime=None):
     import sys
     sys.path.append('..')
-    from lib import *
+    from lib import mb_code
     from datetime import datetime
-    ptime = datetime.strptime(prevtime, '%a, %d %b %Y %H:%M:%S +0000')
+    if prevtime is not None:
+        ptime = datetime.strptime(prevtime, '%a, %d %b %Y %H:%M:%S +0000')
+    else:
+        ptime = False
+        
     url = 'http://twitter.com/statuses/user_timeline/%s.rss' %  username
     data = fetch(url)
     if not data:
@@ -85,8 +89,7 @@ def get_twitter_status(username, prevtime):
     date = tree.getElementsByTagName('pubDate')
     
     statuses = []
-    lst = range(len(desc))
-    lst.reverse()
+    lst = range(len(desc)-1, -1, -1)
     prefix = '%s: ' % username
     prefix_len = len(prefix)
     for i in lst:
@@ -95,7 +98,9 @@ def get_twitter_status(username, prevtime):
             if status.startswith(prefix): status = status[prefix_len:]
         except: continue
         pubdate = date[i].childNodes[0].data
-        if datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
+        if ptime is False:
+            statuses.append((status, pubdate))
+        elif datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
             statuses.append((status, pubdate))
     
     return statuses

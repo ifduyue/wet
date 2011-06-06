@@ -79,4 +79,8 @@ class Facebook:
         }))
         c.perform()
         return b.getvalue()
-        
+
+def pub2facebook(username, password, status):
+    facebook = Facebook(username, password)
+    facebook.login()
+    facebook.update(status)
