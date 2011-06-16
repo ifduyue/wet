@@ -1,9 +1,9 @@
 #!/bin/bash
 cd `dirname $0`
-wget http://60.28.113.74:8000/sinatpy20100906.zip
-unzip sinatpy20100906.zip
-for i in `ls sinatpy`;
+wget "http://sinatpy.googlecode.com/files/sinatpy2.x-%282011-6-8%29.zip" -O sinatpy.zip
+unzip sinatpy.zip
+for i in `ls "sinatpy2.x-(2011-6-8)/sinatpy2.x"`;
 do
-    mv sinatpy/$i .
+    mv "sinatpy2.x-(2011-6-8)/sinatpy2.x/$i" .
 done
-rm -rf sinatpy20100906.zip sinatpy
+rm -rf sinatpy.zip "sinatpy2.x-(2011-6-8)"
