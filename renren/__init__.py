@@ -1,8 +1,14 @@
-import StringIO
+#!/usr/bin/env python
+#coding: utf8
+
 import re
 import urllib
+import sys
+sys.path.insert(0, '..')
+from bc import BC
 import pycurl
-class Renren:
+
+class Renren(BC):
     origURL = "http://www.renren.com/SysHome.do"
     domain = "renren.com"
     login_action = "http://www.renren.com/PLogin.do"
@@ -15,17 +21,8 @@ class Renren:
         self.username = username
         self.password = password
         self.cookie_file = username + '.renren_cookie'
-        self.b = StringIO.StringIO()
-        self.c = pycurl.Curl()
+        BC.__init__(self)
         self.reset()
-
-    def reset(self):
-        b = self.b
-        c = self.c
-        b.truncate(0)
-        c.reset()
-        c.setopt(pycurl.WRITEFUNCTION, b.write)
-        return b, c
         
     def login(self):
         b, c = self.reset()

@@ -1,26 +1,19 @@
 #coding: utf8
-import StringIO
+
+import sys
+sys.path.insert(0, '..')
 import re
 import urllib
 import pycurl
 
-class Facebook:
+class Facebook(BC):
     
     def __init__(self, username, password):
         self.username = username
         self.password = password
         self.cookie_file = username + '.facebook_cookie'
-        self.b = StringIO.StringIO()
-        self.c = pycurl.Curl()
+        BC.__init__(self)
         self.reset()
-    
-    def reset(self):
-        b = self.b
-        c = self.c
-        b.truncate(0)
-        c.reset()
-        c.setopt(pycurl.WRITEFUNCTION, b.write)
-        return b,c
         
     def login(self): 
         b, c = self.reset()

@@ -1,17 +1,18 @@
 #coding: utf8
-import StringIO
+
+import sys
+sys.path.insert(0, '..')
 import re
 import urllib
 import pycurl
 
-class Twitter:
+class Twitter(BC):
     
     def __init__(self, username, password):
         self.username = username
         self.password = password
         self.cookie_file = username + '.twitter_cookie'
-        self.b = StringIO.StringIO()
-        self.c = pycurl.Curl()
+        BC.__init__(self)
         self.reset()
     
     def reset(self):
