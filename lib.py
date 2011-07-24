@@ -109,3 +109,12 @@ def log(string):
     log_file = get_path('log')
     with open(log_file, 'a+') as f:
         f.write("[%s] %s\n" % (timestamp, string))
+        
+def str2js_str(str):
+    str = mb_code(str)
+    str = unicode(str)
+    str = repr(str)
+    if str:
+        str[2:-1]
+    return str
+    

@@ -20,4 +20,5 @@ class BC:
         c.setopt(pycurl.WRITEFUNCTION, b.write)
         c.setopt(pycurl.CONNECTTIMEOUT, 5)
         c.setopt(pycurl.TIMEOUT, 10)
+        c.setopt(pycurl.USERAGENT, 'Opera/9.60')
         return b, c

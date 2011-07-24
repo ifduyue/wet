@@ -20,7 +20,7 @@ def pub2all(status, savetime=False):
         
     if conf.sina_user and conf.sina_passwd:
         try:
-            pub2renren(conf.sina_user, conf.sina_passwd, status)
+            pub2sina(status)
             if savetime:
                 save_prev_time(conf.twitter_user, savetime)
         except Exception, e:
@@ -28,7 +28,7 @@ def pub2all(status, savetime=False):
             
     if conf.facebook_user and conf.facebook_passwd:
         try:
-            pub2renren(conf.facebook_user, conf.facebook_passwd, status)
+            pub2facebook(conf.facebook_user, conf.facebook_passwd, status)
             if savetime:
                 save_prev_time(conf.twitter_user, savetime)
         except Exception, e:
@@ -36,7 +36,7 @@ def pub2all(status, savetime=False):
             
     if conf.douban_user and conf.douban_passwd:
         try:
-            pub2renren(conf.douban_user, conf.douban_passwd, status)
+            pub2douban(conf.douban_user, conf.douban_passwd, status)
             if savetime:
                 save_prev_time(conf.twitter_user, savetime)
         except Exception, e:
@@ -44,7 +44,7 @@ def pub2all(status, savetime=False):
     
 if __name__ == '__main__':
     from sys import argv
-    status = argv
+    status = argv[1]
     pub2all(mb_code(status))
     
 
