@@ -2,6 +2,8 @@
 
 import sys
 sys.path.insert(0, '..')
+from bc import BC
+from lib import *
 import re
 import urllib
 import pycurl
