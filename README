@@ -19,6 +19,11 @@ wet = we t, 我推!
     4. 同步douban: 编辑conf.py, 填入douban的帐号, 密码
     5. 同步facebook: 编辑conf.py, 填入facebook的帐号, 密码
     6. 把main.py加入crontab, 5分钟一次就好
+    7. 同步rss到sina:
+    7.1 确保完成3及3.1
+        编辑conf.py, 把rss的url填入到feed中
+        sh rss/download_feedparser.sh
+        把rss2sina.py加入crontab
 
 # TODO
     * 基于tornado写一个web端

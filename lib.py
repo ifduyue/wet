@@ -117,4 +117,52 @@ def str2js_str(str):
     if str:
         str[2:-1]
     return str
+
+def joinpath(d, f):
+    from os.path import sep
+    return sep.join([d, f])
+
+def writeto(path, data):
+    fh = open(path, 'w')
+    fh.write(data)
+    fh.close()
+    
+def readfrom(path):
+    fh = open(path, 'r')
+    data = fh.read()
+    fh.close()
+    return data
+    
+def dumpto(path, obj):
+    import pickle
+    fh = open(path, 'wb')
+    pickle.dump(obj, fh)
+    fh.close()
+    
+def loadfrom(path):
+    import pickle
+    fh = None
+    try:
+        fh = open(path, 'rb')
+        obj = pickle.load(fh)
+    except Exception, e:
+        obj = None
+    finally:
+        if fh: fh.close()
+    return obj
+    
+def isreadablefile(path):
+    import os
+    return os.access(path, os.R_OK)
+    
+def touch(path):
+    import os
+    try:
+        os.utime(path, None)
+    except:
+        open(path, 'a').close()
+        
+def mv(f, t):
+    import shutil
+    shutil.move(f, t)
     

@@ -1,4 +1,7 @@
 exclude = list('@.')
+feeds = [
+    
+]
 twitter_user = ''
 sina_user = ''
 sina_passwd = ''
