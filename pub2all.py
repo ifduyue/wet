@@ -45,7 +45,7 @@ def pub2all(status, savetime=False):
 
     if conf.qq_user and conf.qq_passwd:
         try:
-            pub2qq(conf.qq_user, conf.qq_passwd, status)
+            pub2qq(status)
             if savetime:
                 save_prev_time(conf.twitter_user, savetime)
         except Exception, e:
