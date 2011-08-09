@@ -23,9 +23,10 @@ wet = we t, 我推!
         sh qq/download_qqweibo.sh
         去open.t.qq.com申请一个应用, 编辑qq/conf.py, 填入consumer_key和consumer_secret
         python qq/get_oauthed.py使自己的qq微博帐号和应用绑定
-    7. 把main.py加入crontab, 5分钟一次就好
-    8. 同步rss到sina:
-    8.1 确保完成3及3.1
+    7. 同步fanfou: 编辑conf.py, 填入饭否的帐号, 密码
+    8. 把main.py加入crontab, 5分钟一次就好
+    9. 同步rss到sina:
+    9.1 确保完成3及3.1
         编辑conf.py, 把rss的url填入到feed中
         sh rss/download_feedparser.sh
         把rss2sina.py加入crontab

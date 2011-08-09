@@ -21,4 +21,5 @@ class BC:
         c.setopt(pycurl.CONNECTTIMEOUT, 5)
         c.setopt(pycurl.TIMEOUT, 10)
         c.setopt(pycurl.USERAGENT, 'Opera/9.60')
+        c.setopt(pycurl.FOLLOWLOCATION, True)
         return b, c

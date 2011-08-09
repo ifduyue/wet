@@ -9,6 +9,7 @@ def pub2all(status, savetime=False):
     from douban import pub2douban
     from facebook import pub2facebook
     from qq import pub2qq
+    from fanfou import pub2fanfou
     import conf
     
     if conf.renren_user and conf.renren_passwd:
@@ -50,7 +51,15 @@ def pub2all(status, savetime=False):
                 save_prev_time(conf.twitter_user, savetime)
         except Exception, e:
             log('pub2qq error: %s' % str(e))
-     
+    
+    if conf.fanfou_user and conf.fanfou_passwd:
+        try:
+            pub2fanfou(conf.fanfou_user, conf.fanfou_passwd, status)
+            if savetime:
+                save_prev_time(conf.twitter_user, savetime)
+        except Exception, e:
+            log('pub2fanfou error: %s' % str(e))
+
             
 if __name__ == '__main__':
     from sys import argv
