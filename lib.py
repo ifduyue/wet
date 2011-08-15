@@ -173,8 +173,6 @@ def unshortenurl(short):
         opener.open(short)
     except IOError, e:
         f = e
-    finally:
-        f.close()
     try:
         f = e.args[3]
         return f.dict['location']
