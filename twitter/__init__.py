@@ -7,6 +7,7 @@ from lib import *
 import re
 import urllib
 import pycurl
+shorten_re = re.compile(r'''(http://t\.co/\w+)''')
 
 class Twitter(BC):
     
@@ -101,9 +102,16 @@ def get_twitter_status(username, prevtime=None):
             if status.startswith(prefix): status = status[prefix_len:]
         except: continue
         pubdate = date[i].childNodes[0].data
-        if ptime is False:
-            statuses.append((status, pubdate))
-        elif datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
+        if ptime is False or datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
+            shortens = shorten_re.findall(status)
+            for s in shortens:
+                url = unshortenurl(s)
+                if url != s: 
+                    status = status.replace(s, url)
             statuses.append((status, pubdate))
     
     return statuses
+
+
+if __name__ == '__main__':
+    print get_twitter_status('lyxint')
