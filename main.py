@@ -17,7 +17,7 @@ def twitter2all():
         print pubdate, status
         if pub2all(status):
             save_prev_time(conf.twitter_user, pubdate)
-        sleep(10)
+            sleep(10)
         
 def feeds2all():
     from rss import get_rss_entries
@@ -38,12 +38,10 @@ def feeds2all():
         
         for status, publishtime in statuses:
             print publishtime, status
-            if maxtime < publishtime:
-                    maxtime = publishtime
-            continue
             if pub2all(status):
                 if maxtime < publishtime:
                     maxtime = publishtime
+                sleep(10)
             
         lasttimes[url] = maxtime
         dumpto('rss_lasttimes', lasttimes)
