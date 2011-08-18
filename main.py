@@ -12,7 +12,7 @@ def twitter2all():
     statuses = get_twitter_status(conf.twitter_user, prevtime)
     
     for status, pubdate in statuses:
-        if status[0] in exclude:
+        if status[0] in conf.exclude:
             continue
         print pubdate, status
         if pub2all(status):
