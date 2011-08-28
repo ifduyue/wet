@@ -69,6 +69,10 @@ class Twitter(BC):
         return b.getvalue()
 
 
+def pub2twitter(username, password, status):
+    t = Twitter(username, password)
+    t.login()
+    t.update(status)
 
 def get_twitter_status(username, prevtime=None):
     import sys
