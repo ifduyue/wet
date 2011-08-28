@@ -10,6 +10,7 @@ def pub2all(status):
     from facebook import pub2facebook
     from qq import pub2qq
     from fanfou import pub2fanfou
+    from _42qu import pub2_42qu
     import conf
     
     flag = False
@@ -55,7 +56,14 @@ def pub2all(status):
             flag = True
         except Exception, e:
             log('pub2fanfou error: %s' % str(e))
-    
+
+    if conf._42qu_user and conf._42qu_passwd:
+        try:
+            pub2_42qu(conf._42qu_user, conf._42qu_passwd, status)
+            flag = True
+        except Exception, e:
+            log('pub2_42qu error: %s' % str(e))
+
     return flag
 
             
