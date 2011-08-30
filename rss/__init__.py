@@ -14,10 +14,10 @@ def get_rss_entries(url, prevtime=None):
         
     statuses = []
     for e in d.entries:
-        title = e.title
-        href = e.links[0]['href']
+        title = mb_code(e.title)
+        href = mb_code(e.links[0]['href'])
         publishtime = e.updated_parsed
-        msg = mb_code(u'%s %s' % (title, href))
+        msg = {'title': title, 'url': href}
         
         if prevtime is None or publishtime > prevtime:
             statuses.append((msg, publishtime))            

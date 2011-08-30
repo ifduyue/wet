@@ -26,7 +26,7 @@ def feeds2all():
     if lasttimes is None:
         lasttimes = {}
         
-    for url in conf.feeds:
+    for format_, url in conf.feeds:
         lasttime = lasttimes.get(url, None)
         if lasttime is None:
             lasttimes[url] = localtime()
@@ -37,7 +37,9 @@ def feeds2all():
         maxtime = lasttime
         
         for status, publishtime in statuses:
+            status = format_ % status
             print publishtime, status
+
             if pub2all(status):
                 if maxtime < publishtime:
                     maxtime = publishtime
@@ -47,5 +49,5 @@ def feeds2all():
         dumpto('rss_lasttimes', lasttimes)
 
 if __name__ == '__main__':
-    twitter2all()
+    #twitter2all()
     feeds2all()
