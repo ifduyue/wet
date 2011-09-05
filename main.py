@@ -49,5 +49,5 @@ def feeds2all():
         dumpto('rss_lasttimes', lasttimes)
 
 if __name__ == '__main__':
-    #twitter2all()
+    twitter2all()
     feeds2all()
