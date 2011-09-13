@@ -12,7 +12,7 @@ class Facebook(BC):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.cookie_file = username + '.facebook_cookie'
+        self.cookie_file = '/dev/null'
         BC.__init__(self)
         self.reset()
         
