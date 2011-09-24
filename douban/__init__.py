@@ -64,3 +64,4 @@ def pub2douban(username, password, status):
     douban = Douban(username, password)
     douban.login()
     douban.update(status)
+    
