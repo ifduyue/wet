@@ -1,3 +1,5 @@
+import re
+
 def decodeHtmlentities(string):
     import re
     entity_re = re.compile("&(#?)(\d{1,5}|\w{1,8});")
@@ -178,4 +180,15 @@ def unshortenurl(short):
         return f.dict['location']
     except:
         return short
-        
+
+def unshortenstatus(status, regex=re.compile(r'''(http://t\.co/\w+|http://bit\.ly/\w+)'''), retries=3):
+    while retries:
+        retries -= 1
+        shortens = regex.findall(status)
+        if not shortens:
+            break
+        for s in shortens:
+            url = unshortenurl(s)
+            if url != s:
+                status = status.replace(s, url)
+    return status
