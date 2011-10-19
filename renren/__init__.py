@@ -130,7 +130,7 @@ class Renren3g(BC):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.cookie_file = 'test'
+        self.cookie_file = '/dev/null'
         BC.__init__(self)
         self.reset()
         
