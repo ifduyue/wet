@@ -125,9 +125,55 @@ class Renren(BC):
                     print i
                 except: pass
 
+class Renren3g(BC):
+    
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+        self.cookie_file = 'test'
+        BC.__init__(self)
+        self.reset()
+        
+    def login(self):
+        b, c = self.reset()
+        c.setopt(pycurl.URL, 'http://3g.renren.com/login.do?autoLogin=true')
+        c.setopt(pycurl.COOKIEFILE, self.cookie_file)
+        c.setopt(pycurl.POST, True)
+        c.setopt(pycurl.REFERER, "http://m.renren.com/")
+        c.setopt(pycurl.POSTFIELDS, urllib.urlencode({
+            'email': self.username,
+            'password': self.password,
+            'origURL': '',
+            'login': '登录',
+        }))
+        c.perform()
+        #match = re.search('''sid=(.*?)&amp;(.*?)&amp;''', b.getvalue())
+        #self.sid = match.group(1)
+        #self.token = match.group(2)
+        #print self.sid, self.token
+        return b.getvalue()
+        
+    def update(self, status):
+        b, c = self.reset()
+        c.setopt(pycurl.URL, "http://3g.renren.com/status/wUpdateStatus.do")
+        c.setopt(pycurl.COOKIEFILE, self.cookie_file)
+        c.setopt(pycurl.POST, True)
+        c.setopt(pycurl.REFERER, "http://3g.renren.com/home.do")
+        c.setopt(pycurl.POSTFIELDS, urllib.urlencode({
+            'empty': 1,
+            'pid': '',
+            'sour': 'home',
+            'status': status,
+            'update': '发布',
+        }))
+        c.perform()
+        return b.getvalue()
+        
+        
+        
 
 def pub2renren(username, password, status):
-    renren = Renren(username, password)
+    renren = Renren3g(username, password)
     renren.login()
     renren.update(status)
 

@@ -25,7 +25,13 @@ class BC:
         c.setopt(pycurl.USERAGENT, 'Opera/9.60')
         c.setopt(pycurl.FOLLOWLOCATION, True)
         c.setopt(pycurl.MAXREDIRS, 5)
+        '''
         c.setopt(pycurl.HEADERFUNCTION, self.headerfunction)
+        c.setopt(pycurl.HTTPHEADER, [
+            "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            'Accept-Language: en-US, zh-CN',
+        ])
+        '''
         return b, c
 
     def headerfunction(self, h):
