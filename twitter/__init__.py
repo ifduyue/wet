@@ -7,7 +7,14 @@ from lib import *
 import re
 import urllib
 import pycurl
-shorten_re = re.compile(r'''(http://t\.co/\w+|http://bit.ly/\w+)''')
+
+from conf import unshorten_prefix
+unshorten_re = []
+for i in unshorten_prefix:
+    unshorten_re.append(re.escape(i) + '\w+')
+unshorten_re = '(%s)' % '|'.join(unshorten_re)
+unshorten_re = re.compile(unshorten_re)
+    
 
 class Twitter(BC):
     
@@ -107,7 +114,7 @@ def get_twitter_status(username, prevtime=None):
         except: continue
         pubdate = date[i].childNodes[0].data
         if ptime is False or datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
-            status = unshortenstatus(status)
+            status = unshortenstatus(status, unshorten_re)
             statuses.append((status, pubdate))
     
     return statuses

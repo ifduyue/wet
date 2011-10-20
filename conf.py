@@ -1,4 +1,20 @@
+'''
+short url starts with i, for i in unshorten_prefix, will be unshortened
+example:
+unshorten_prefix = [
+    'http://t.co/',
+    'http://bit.ly/',
+]
+'''
+unshorten_prefix = [
+
+]
+
+'''
+excluding status which starts with i, for i in exclude
+'''
 exclude = list('@.')
+
 '''
 feeds example:
 feeds = [
@@ -9,6 +25,10 @@ feeds = [
 feeds = [
 
 ]
+
+'''
+Accounts
+'''
 twitter_user = ''
 sina_user = ''
 sina_passwd = ''
