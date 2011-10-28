@@ -192,3 +192,7 @@ def unshortenstatus(status, regex=re.compile(r'''(http://t\.co/\w+|http://bit\.l
             if url != s:
                 status = status.replace(s, url)
     return status
+
+def strip_tags(html):
+    html = re.sub("<.*?>", " ", html)
+    return re.sub("\s+", " ", html)

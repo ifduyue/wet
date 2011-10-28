@@ -5,7 +5,7 @@ def get_rss_entries(url, prevtime=None):
     import feedparser
     import sys
     sys.path.insert(0, '..')
-    from lib import mb_code
+    from lib import mb_code, strip_tags
     
     try:
         d = feedparser.parse(url)
@@ -18,6 +18,7 @@ def get_rss_entries(url, prevtime=None):
         href = mb_code(e.links[0]['href'])
         try:
             content = mb_code(e.content[0].value)
+            content = strip_tags(content) 
         except:
             content = ''
         try:
