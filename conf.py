@@ -1,3 +1,4 @@
+#coding: utf8
 #short url starts with i, for i in unshorten_prefix, will be unshortened
 unshorten_prefix = [
     'http://t.co',

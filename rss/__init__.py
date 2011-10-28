@@ -16,7 +16,10 @@ def get_rss_entries(url, prevtime=None):
     for e in d.entries:
         title = mb_code(e.title)
         href = mb_code(e.links[0]['href'])
-        content = mb_code(e.content[0].value)
+        try:
+            content = mb_code(e.content[0].value)
+        except:
+            content = ''
         try:
             publishtime = e.published_parsed 
         except:
