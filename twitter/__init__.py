@@ -111,7 +111,7 @@ def get_twitter_status(username, prevtime=None):
             status = decodeHtmlentities(mb_code(desc[i].childNodes[0].data))
             if status.startswith(prefix): status = status[prefix_len:]
         except: continue
-        pubdate = date[i].childNodes[0].data
+        pubdate = mb_code(date[i].childNodes[0].data)
         if ptime is False or datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
             status = unshortenstatus(status, unshorten_re)
             statuses.append((status, pubdate))
