@@ -104,13 +104,8 @@ def mb_code(string, coding="utf-8"):
         except:
             pass
     return string
-    
-def log(string):
-    from time import strftime
-    timestamp = strftime("%Y-%m-%d %H:%M:%S")
-    log_file = get_path('log')
-    with open(log_file, 'a+') as f:
-        f.write("[%s] %s\n" % (timestamp, string))
+
+from log import log
         
 def str2js_str(str):
     str = mb_code(str)

@@ -25,7 +25,6 @@ class Douban(BC):
         c.perform()
         m = re.search('''href="/\?session=([^'"]+?)"''', b.getvalue())
         self.session = m.group(1)
-        print self.session
         
         b, c = self.reset()
         c.setopt(pycurl.COOKIEJAR, self.cookie_file)

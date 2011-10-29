@@ -51,8 +51,6 @@ class Facebook(BC):
         c.perform()
         self.post_form_id = re.search('''name="post_form_id" value="([^"]+?)"''', b.getvalue()).group(1)
         self.fb_dtsg = re.search('''name="fb_dtsg" value="([^"]+?)"''', b.getvalue()).group(1)
-        print self.post_form_id
-        print self.fb_dtsg
         return b.getvalue()
         
     def update(self, status):

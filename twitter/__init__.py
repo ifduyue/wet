@@ -43,7 +43,6 @@ class Twitter(BC):
         c.perform()
         m = re.search('''name="authenticity_token" .*?value="([^"]+?)"''', b.getvalue())
         self.authenticity_token = m.group(1)
-        print self.authenticity_token
         
         b, c = self.reset()
         c.setopt(pycurl.COOKIEJAR, self.cookie_file)

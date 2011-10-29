@@ -3,6 +3,8 @@
 import conf
 from lib import *
 from time import sleep, gmtime
+from datetime import datetime
+import time
 from pub2all import pub2all
 
 def twitter2all():
@@ -14,7 +16,11 @@ def twitter2all():
     for status, pubdate in statuses:
         if status[0] in conf.exclude:
             continue
-        print pubdate, status
+        log("[publishing] %s : %s",
+            datetime.strftime(pubdate, "%Y-%m-%d %H:%M:%S"),
+            status,
+        )
+        
         if pub2all(status):
             save_prev_time(conf.twitter_user, pubdate)
             sleep(10)
@@ -38,7 +44,11 @@ def feeds2all():
         
         for status, publishtime in statuses:
             status = format_ % status
-            print publishtime, status
+            
+            log("[publishing] %s : %s",
+                time.strftime("%Y-%m-%d %H:%M:%S", publishtime),
+                status,
+            )
 
             if pub2all(status):
                 if maxtime < publishtime:
