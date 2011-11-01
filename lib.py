@@ -1,7 +1,7 @@
 import re
+import os
 
 def decodeHtmlentities(string):
-    import re
     entity_re = re.compile("&(#?)(\d{1,5}|\w{1,8});")
 
     def substitute_entity(match):
@@ -78,14 +78,19 @@ def fetch(url):
     return data
     
 def get_path(filename=None):
-    import os.path
     HERE = os.path.dirname(os.path.abspath(__file__))
     if filename is not None:
         HERE = os.path.join(HERE, filename)
-    return HERE   
+    return HERE
+
+def get_data_path(filename=None):
+    data_dir = get_path("data")
+    if not os.path.isdir(data_dir):
+        os.makedirs(data_dir)
+    return os.path.join(data_dir, filename) if filename is not None else data_dir
 
 def load_prev_time(id):
-    id = get_path(id)
+    id = get_data_path(id)
     try:
         return open(id, 'r').read().strip()
     except:
@@ -93,12 +98,18 @@ def load_prev_time(id):
     return 'Thu, 10 Feb 2011 10:08:49 +0000'
 
 def save_prev_time(id, s):
-    open(get_path(id), 'w').write(s)
+    open(get_data_path(id), 'w').write(s)
+    
+def read_rss_lasttimes():
+    return loadfrom( get_data_path('rss_lasttimes') )
+    
+def save_rss_lasttimes(obj):
+    dumpto( get_data_path('rss_lasttimes'), obj)
 
 def mb_code(string, coding="utf-8"):
     if isinstance(string, unicode):
         return string.encode(coding)
-    for c in ('utf-8', 'gb2312', 'gbk', 'gb18030'):
+    for c in ('utf-8', 'gb2312', 'gbk', 'gb18030', 'big5'):
         try:
             return string.decode(c).encode(coding)
         except:
@@ -149,11 +160,9 @@ def loadfrom(path):
     return obj
     
 def isreadablefile(path):
-    import os
     return os.access(path, os.R_OK)
     
 def touch(path):
-    import os
     try:
         os.utime(path, None)
     except:

@@ -26,16 +26,16 @@ def twitter2all():
 def feeds2all():
     from rss import get_rss_entries
     
-    lasttimes = loadfrom('rss_lasttimes')
+    lasttimes = read_rss_lasttimes()
     if lasttimes is None:
         lasttimes = {}
         
     for format_, url in conf.feeds:
         lasttime = lasttimes.get(url, None)
         if lasttime is None:
-            log("first time fetching %s, pass", url)
+            log("first time fetching %s, skip", url)
             lasttimes[url] = gmtime()
-            dumpto('rss_lasttimes', lasttimes)
+            save_rss_lasttimes(lasttimes)
             continue
         
         statuses = get_rss_entries(url, lasttime)
@@ -55,8 +55,10 @@ def feeds2all():
                 sleep(10)
             
         lasttimes[url] = maxtime
-        dumpto('rss_lasttimes', lasttimes)
+        save_rss_lasttimes(lasttimes)
 
 if __name__ == '__main__':
+    log("start...")
     twitter2all()
     feeds2all()
+    log("finish...")
