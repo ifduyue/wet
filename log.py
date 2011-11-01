@@ -1,7 +1,7 @@
 #coding: utf-8
 
 import logging
-from lib import get_path
+from lib import get_data_path
 
 _logger = None
 

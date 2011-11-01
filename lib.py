@@ -94,8 +94,7 @@ def load_prev_time(id):
     try:
         return open(id, 'r').read().strip()
     except:
-        open(id, 'w').write('Thu, 10 Feb 2011 10:08:49 +0000')
-    return 'Thu, 10 Feb 2011 10:08:49 +0000'
+        return None
 
 def save_prev_time(id, s):
     open(get_data_path(id), 'w').write(s)

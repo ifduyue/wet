@@ -11,6 +11,12 @@ def twitter2all():
     prevtime = load_prev_time(conf.twitter_user)
     statuses = get_twitter_status(conf.twitter_user, prevtime)
     
+    if prevtime is None:
+        log("first time fetch %s's tweets, skip", conf.twitter_user)
+        save_prev_time(conf.twitter_user, statuses[-1][1])
+        return
+    
+    maxtime = prevtime
     for status, pubdate in statuses:
         if status[0] in conf.exclude:
             continue
@@ -19,9 +25,10 @@ def twitter2all():
             status,
         )
         
-        if pub2all(status):
-            save_prev_time(conf.twitter_user, pubdate)
+        if pub2all(status) and maxtime < pubdate:
+            maxtime = pubdate
             sleep(10)
+    save_prev_time(conf.twitter_user, maxtime)
         
 def feeds2all():
     from rss import get_rss_entries
@@ -49,9 +56,8 @@ def feeds2all():
                 status,
             )
 
-            if pub2all(status):
-                if maxtime < publishtime:
-                    maxtime = publishtime
+            if pub2all(status) and maxtime < publishtime:
+                maxtime = publishtime
                 sleep(10)
             
         lasttimes[url] = maxtime
