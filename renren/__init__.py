@@ -146,11 +146,13 @@ class Renren3g(BC):
             'login': '登录',
         }))
         c.perform()
+        self.update_url = re.search(r'''action="([^"]+?)"''', b.getvalue()).group(1).replace('&amp;', '&')
         return b.getvalue()
         
     def update(self, status):
         b, c = self.reset()
-        c.setopt(pycurl.URL, "http://3g.renren.com/status/wUpdateStatus.do")
+        #c.setopt(pycurl.URL, "http://3g.renren.com/status/wUpdateStatus.do")
+        c.setopt(pycurl.URL, self.update_url)
         c.setopt(pycurl.COOKIEFILE, self.cookie_file)
         c.setopt(pycurl.POST, True)
         c.setopt(pycurl.REFERER, "http://3g.renren.com/home.do")
@@ -168,7 +170,7 @@ class Renren3g(BC):
         
 
 def pub2renren(username, password, status):
-    renren = Renren3g(username, password)
+    renren = Renren(username, password)
     renren.login()
     renren.update(status)
 
