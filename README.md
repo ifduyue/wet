@@ -12,15 +12,15 @@ By @lyxint <lyxint@gmail.com>
 
 - 编辑conf.py, 填入twitter帐号和feeds地址
 - 编辑conf.py, 填入要同步到的帐号和密码
-- 同步到腾讯微博
-    > - sh qq/download_qqweibo.sh
-    > - 去open.t.qq.com申请一个应用, 编辑qq/conf.py, 填入consumer_key和consumer_secret
-    > - python qq/get_oauthed.py使自己的qq微博帐号和应用绑定
-- 同步到新浪微博
-    > - sh sina/download_sinatpy.sh
-    > - 去open.weibo.com申请一个应用, 编辑sina/conf.py填入consumer_key和consumer_secret
-    > - python sina/get_oauthed.py使自己的weibo帐号和应用绑定
-- 把main.py加入crontab, 间隔自己掂量, 我设置的是每5分钟一次
+    - 同步到腾讯微博
+        * sh qq/download_qqweibo.sh
+        * 去open.t.qq.com申请一个应用, 编辑qq/conf.py, 填入consumer_key和consumer_secret
+        * python qq/get_oauthed.py使自己的qq微博帐号和应用绑定
+    - 同步到新浪微博
+        * sh sina/download_sinatpy.sh
+        * 去open.weibo.com申请一个应用, 编辑sina/conf.py填入consumer_key和consumer_secret
+        * python sina/get_oauthed.py使自己的weibo帐号和应用绑定
+    - 把main.py加入crontab, 间隔自己掂量, 我设置的是每5分钟一次
 
 
 TODO
