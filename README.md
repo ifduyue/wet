@@ -9,7 +9,7 @@ By @lyxint <lyxint@gmail.com>
 
 使用方法
 --------
-
+- **一台墙外的server, 否则取不到twitter feed**
 - 编辑conf.py, 填入twitter帐号和feeds地址
 - 编辑conf.py, 填入要同步到的帐号和密码
     - 同步到腾讯微博
