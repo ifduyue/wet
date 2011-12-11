@@ -168,9 +168,13 @@ class Renren3g(BC):
         
         
         
-
+_instance = None
 def pub2renren(username, password, status):
-    renren = Renren(username, password)
-    renren.login()
+    global _instance
+    if _instance is None:
+        renren = Renren(username, password)
+        renren.login()
+        _instance = renren
+    renren = _instance
     renren.update(status)
 

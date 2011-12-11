@@ -72,7 +72,12 @@ class Facebook(BC):
         c.perform()
         return b.getvalue()
 
+_instance = None
 def pub2facebook(username, password, status):
-    facebook = Facebook(username, password)
-    facebook.login()
+    global _instance
+    if _instance is None:
+        facebook = Facebook(username, password)
+        facebook.login()
+        _instance = facebook
+    facebook = _instance
     facebook.update(status)

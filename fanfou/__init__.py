@@ -60,9 +60,12 @@ class Fanfou(BC):
         c.perform()
         return b.getvalue()
 
-
+_instance = None
 def pub2fanfou(username, password, status):
-    fanfou = Fanfou(username, password)
-    fanfou.login()
+    if _instance is None:
+        fanfou = Fanfou(username, password)
+        fanfou.login()
+        _instance = fanfou
+    fanfou = _instance
     return fanfou.update(status)
 

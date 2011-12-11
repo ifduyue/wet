@@ -56,8 +56,12 @@ class _42qu(BC):
         c.perform()
         return b.getvalue()
 
-
+_instance = None
 def pub2_42qu(username, password, status):
-    o = _42qu(username, password)
-    o.login()
+    global _instance
+    if _instance is None:
+       o = _42qu(username, password)
+       o.login() 
+       _instance = o
+    o = _instance
     o.update(status)
