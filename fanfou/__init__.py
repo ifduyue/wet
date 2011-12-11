@@ -62,6 +62,7 @@ class Fanfou(BC):
 
 _instance = None
 def pub2fanfou(username, password, status):
+    global _instance
     if _instance is None:
         fanfou = Fanfou(username, password)
         fanfou.login()
