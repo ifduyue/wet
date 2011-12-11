@@ -58,9 +58,13 @@ class Douban(BC):
         c.perform()
         return b.getvalue()
         
-
+_instance = None
 def pub2douban(username, password, status):
-    douban = Douban(username, password)
-    douban.login()
+    global _instance
+    if _instance is None:
+        douban = Douban(username, password)
+        douban.login()
+        _instance = douban
+    douban = _instance
     douban.update(status)
     
