@@ -91,13 +91,11 @@ def get_data_path(filename=None):
 
 def load_prev_time(id):
     id = get_data_path(id)
-    try:
-        return open(id, 'r').read().strip()
-    except:
-        return None
+    return loadfrom(id)
 
 def save_prev_time(id, s):
-    open(get_data_path(id), 'w').write(s)
+    id = get_data_path(id)
+    return dumpto(id)
     
 def read_rss_lasttimes():
     return loadfrom( get_data_path('rss_lasttimes') )

@@ -81,8 +81,6 @@ def pub2twitter(username, password, status):
     t.update(status)
 
 def get_twitter_status(username, prevtime=None):
-    import sys
-    sys.path.append('..')
     from lib import mb_code
     from datetime import datetime
     if prevtime is not None:
@@ -112,7 +110,8 @@ def get_twitter_status(username, prevtime=None):
             if status.startswith(prefix): status = status[prefix_len:]
         except: continue
         pubdate = mb_code(date[i].childNodes[0].data)
-        if ptime is False or datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000') > ptime:
+        pubdate = datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000')
+        if ptime is False or pubdate > ptime:
             status = unshortenstatus(status, unshorten_re)
             statuses.append((status, pubdate))
     
