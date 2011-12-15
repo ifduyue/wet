@@ -95,7 +95,7 @@ def load_prev_time(id):
 
 def save_prev_time(id, s):
     id = get_data_path(id)
-    return dumpto(id)
+    return dumpto(id, s)
     
 def read_rss_lasttimes():
     return loadfrom( get_data_path('rss_lasttimes') )
