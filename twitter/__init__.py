@@ -83,10 +83,7 @@ def pub2twitter(username, password, status):
 def get_twitter_status(username, prevtime=None):
     from lib import mb_code
     from datetime import datetime
-    if prevtime is not None:
-        ptime = datetime.strptime(prevtime, '%a, %d %b %Y %H:%M:%S +0000')
-    else:
-        ptime = False
+    ptime = prevtime if prevtime is not None else False
         
     url = 'http://twitter.com/statuses/user_timeline/%s.rss' %  username
     data = fetch(url)
