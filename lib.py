@@ -113,8 +113,6 @@ def mb_code(string, coding="utf-8"):
             pass
     return string
 
-from log import log
-        
 def str2js_str(str):
     str = mb_code(str)
     str = unicode(str)
@@ -169,18 +167,20 @@ def mv(f, t):
     import shutil
     shutil.move(f, t)
 
-def unshortenurl(short):
+def unshortenurl(short, retries=3):
     from urllib import URLopener
-    opener = URLopener()
-    try:
-        opener.open(short)
-    except IOError, e:
-        f = e
-    try:
-        f = e.args[3]
-        return f.dict['location']
-    except:
-        return short
+    while retries:
+        retries -= 1
+        opener = URLopener()
+        try:
+            opener.open(short)
+        except IOError, e:
+            f = e
+        try:
+            f = e.args[3]
+            short = f.dict['location']
+        except: break
+    return short
 
 def unshortenstatus(status, regex=re.compile(r'''(http://t\.co/\w+|http://bit\.ly/\w+)'''), retries=3):
     while retries:

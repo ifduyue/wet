@@ -3,8 +3,8 @@
 import logging
 from lib import get_data_path
 
-def log(msg, *args):
-    if log.logger is None:
+def log(msg, *args): 
+    def init():
         logger = logging.getLogger('wet')
         handler = logging.FileHandler(get_data_path('log'))
         formatter = logging.Formatter('[%(asctime)s]%(message)s', '%Y-%m-%d %H:%M:%S')
@@ -15,6 +15,6 @@ def log(msg, *args):
         logger.addHandler(handler)
         logger.setLevel(logging.DEBUG)
         log.logger = logger
+    logger = getattr(log, 'logger', init())
+    logger.debug(msg, *args)
 
-    log.logger.debug(msg, *args)
-    

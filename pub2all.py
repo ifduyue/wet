@@ -2,6 +2,7 @@
 #coding: utf8
 
 from lib import *
+from log import log
 
 def pub2all(status):
     from renren import pub2renren

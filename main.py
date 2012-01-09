@@ -2,6 +2,7 @@
 #coding: utf8
 import conf
 from lib import *
+from log import log
 from time import sleep, gmtime, strftime
 from pub2all import pub2all
 
