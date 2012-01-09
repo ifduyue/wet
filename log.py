@@ -7,7 +7,7 @@ def log(msg, *args):
     def init():
         logger = logging.getLogger('wet')
         handler = logging.FileHandler(get_data_path('log'))
-        formatter = logging.Formatter('[%(asctime)s]%(message)s', '%Y-%m-%d %H:%M:%S')
+        formatter = logging.Formatter('[%(asctime)s] %(message)s', '%Y-%m-%d %H:%M:%S')
         handler.setFormatter(formatter)
         logger.addHandler(handler)
         handler = logging.StreamHandler()
@@ -15,6 +15,11 @@ def log(msg, *args):
         logger.addHandler(handler)
         logger.setLevel(logging.DEBUG)
         log.logger = logger
-    logger = getattr(log, 'logger', init())
+        return logger
+
+    logger = getattr(log, 'logger', None)
+    if logger is None:
+        logger = init()
+    
     logger.debug(msg, *args)
 
