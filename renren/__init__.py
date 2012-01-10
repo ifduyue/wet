@@ -56,6 +56,6 @@ def pub2renren(username, password, status):
     renren.update(status)
 
 
-if __name == '__main__':
+if __name__ == '__main__':
     import sys
     pub2renren(*sys.argv[1:4])
