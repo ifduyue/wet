@@ -3,7 +3,13 @@
 unshorten_prefix = [
     'http://t.co/',
     'http://bit.ly/',
+    'http://goo.gl/',
+    'http://j.mp/',
 ]
+
+# use http://shurl.im/ to shorten url in the status
+# this make sure the status is less than 140 characters
+use_shurl = True
 
 #excluding status which starts with i, for i in exclude
 exclude = list('@.')

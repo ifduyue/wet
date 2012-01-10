@@ -19,64 +19,6 @@ def decodeHtmlentities(string):
 
     return entity_re.subn(substitute_entity, string)[0]
     
-def fetch(url):
-    from socket import setdefaulttimeout
-    setdefaulttimeout(10.0)
-    import urllib2
-    from random import choice
-    uas = (
-        'Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100920 Fedora/3.6.10-1.fc13 Firefox/3.6.10',
-        'Mozilla/5.0 (X11; U; Linux i686; zh-CN; rv:1.8.1.19) Gecko/20081202 Firefox (Debian-2.0.0.19-0etch1)',
-        'Mozilla/5.0 (Windows; U; Windows NT 5.1; ro; rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8',
-        'Mozilla/5.0 (X11; U; Gentoo Linux x86_64; pl-PL) Gecko Firefox',
-        'Opera/9.99 (Windows NT 5.1; U; pl) Presto/9.9.9',
-        'Opera/9.70 (Linux i686 ; U; zh-CN) Presto/2.2.0',
-        'Opera 9.7 (Windows NT 5.2; U; en)',
-        'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; zh-CN))',
-        'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; Media Center PC 4.0; SLCC1; .NET CLR 3.0.04320)',
-        'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; zh-CN)',
-        'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0;)',
-        'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP)',
-        'Mozilla/4.0 (compatible; MSIE 6.01; Windows NT 6.0)',
-        'Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN) AppleWebKit/533.1 (KHTML, like Gecko) Maxthon/3.0.8.2 Safari/533.1',
-        'sogou spider',
-        'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-        'Googlebot/2.1 (+http://www.googlebot.com/bot.html)',
-        'Googlebot/2.1 (+http://www.google.com/bot.html)',
-        'Mozilla/5.0 (compatible; Yahoo! Slurp China; http://misc.yahoo.com.cn/help.html)',
-    )
-    headers = {
-        'Accept': ' text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'User-Agent': choice(uas)
-    }
-    request = urllib2.Request(url, headers=headers)
-    opener = urllib2.build_opener()
-    try:
-        f = opener.open(request)
-    except Exception, e:
-        return False
-    if f.getcode() != 200:
-        return False
-    try:
-        data = f.read()
-    except Exception, e:
-        return False
-    if f.headers.get('Content-Encoding', '') == 'gzip':
-        try:
-            from cStringIO import StringIO
-        except ImportError:
-            from StringIO import StringIO
-        gzipdata = StringIO(data)
-        import gzip
-        gzipper = gzip.GzipFile(fileobj=gzipdata)
-        try:
-            data = gzipper.read()
-        except (IOError, ValueError), e:
-            return False
-        except Exception, e:
-            return False
-    return data
-    
 def get_path(filename=None):
     HERE = os.path.dirname(os.path.abspath(__file__))
     if filename is not None:
@@ -168,21 +110,25 @@ def mv(f, t):
     shutil.move(f, t)
 
 def unshortenurl(short, retries=3):
-    from urllib import URLopener
+    from urlfetch import get
     while retries:
         retries -= 1
-        opener = URLopener()
         try:
-            opener.open(short)
-        except IOError, e:
-            f = e
-        try:
-            f = e.args[3]
-            short = f.dict['location']
-        except: break
+            # if we use a browser's user-agent
+            # t.co will not send location head
+            # it just output:
+            # <noscript><META http-equiv="refresh" content="0;URL=http://j.mp/zaycIO"></noscript><script>location.replace("http:\/\/j.mp\/zaycIO")</script>
+            # that's awkward!!
+            response = get(short, randua=False, timeout=3)
+            long_ = response.getheader('location')
+            if long_ is None:
+                break
+            short = long_
+        except: pass 
+
     return short
 
-def unshortenstatus(status, regex=re.compile(r'''(http://t\.co/\w+|http://bit\.ly/\w+)'''), retries=3):
+def unshortenstatus(status, regex, retries=3):
     while retries:
         retries -= 1
         shortens = regex.findall(status)
@@ -193,6 +139,19 @@ def unshortenstatus(status, regex=re.compile(r'''(http://t\.co/\w+|http://bit\.l
             if url != s:
                 status = status.replace(s, url)
     return status
+
+def shurl_status(status):
+    from shurl import shurl
+    urls = re.findall(
+        'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', 
+        status,
+    )
+    for url in urls:
+        short = shurl(url)
+        if short != url:
+            status = status.replace(url, short)
+    return status
+        
 
 def strip_tags(html):
     html = re.sub("<.*?>", " ", html)

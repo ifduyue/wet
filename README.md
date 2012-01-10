@@ -5,7 +5,13 @@ By @lyxint <lyxint@gmail.com>
 
 同步tweets和feeds更新到facebook/新浪微博/腾讯微博/豆瓣/人人/饭否等
 
+prerequirements
+===============
 
+
+`urlfetch <http://pypi.python.org/pypi/urlfetch>`__::
+
+    easy_install -U urlfetch
 
 使用方法
 --------

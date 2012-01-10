@@ -7,11 +7,12 @@ from lib import *
 import re
 import urllib
 import pycurl
+from urlfetch import get
 
-from conf import unshorten_prefix
+from conf import unshorten_prefix, use_shurl
 unshorten_re = []
 for i in unshorten_prefix:
-    unshorten_re.append(re.escape(i) + '\w+')
+    unshorten_re.append(re.escape(i) + r'[/\w]+')
 unshorten_re = '(%s)' % '|'.join(unshorten_re)
 unshorten_re = re.compile(unshorten_re)
     
@@ -86,9 +87,10 @@ def get_twitter_status(username, prevtime=None):
     ptime = prevtime if prevtime is not None else False
         
     url = 'http://twitter.com/statuses/user_timeline/%s.rss' %  username
-    data = fetch(url)
-    if not data:
-        return []
+    try:
+        data = get(url).body
+    except: return []
+
     from xml.dom import minidom
     try:
         tree = minidom.parseString(data)
@@ -109,11 +111,16 @@ def get_twitter_status(username, prevtime=None):
         pubdate = mb_code(date[i].childNodes[0].data)
         pubdate = datetime.strptime(pubdate , '%a, %d %b %Y %H:%M:%S +0000')
         if ptime is False or pubdate > ptime:
-            status = unshortenstatus(status, unshorten_re)
+            if unshorten_prefix:
+                status = unshortenstatus(status, unshorten_re)
+            if use_shurl:
+                status = shurl_status(status)
             statuses.append((status, pubdate))
     
     return statuses
 
 
 if __name__ == '__main__':
-    print get_twitter_status('lyxint')
+    for i in get_twitter_status('newsycombinator'):
+        print i
+
