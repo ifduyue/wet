@@ -9,7 +9,7 @@ prerequirements
 ===============
 
 
-`urlfetch <http://pypi.python.org/pypi/urlfetch>`__::
+[urlfetch](http://pypi.python.org/pypi/urlfetch):
 
     easy_install -U urlfetch
 
