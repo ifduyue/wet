@@ -12,24 +12,15 @@ class _42qu(object):
         self.cookies = ''
         
     def login(self):
-        response = fetch(
-            "http://42qu.com/auth/login",
-            headers = {
-                'Referer': 'http://42qu.com/',
-                'User-Agent': 'Opera/9.60',
-            }
-        )
-        self.xsrf = re.search(
-            '''name="_xsrf".*?value="(.*?)"''',
-            response.body
-        ).group(1)
-        set_cookie = response.getheader('Set-Cookie')
-        self.cookies = sc2cs(set_cookie)
+        from random import choice
+        import string
+        self.xsrf = ''.join(choice(string.ascii_letters+string.digits) for i in xrange(20))
+        self.cookies = '_xsrf='+self.xsrf
         
         response =fetch(
             "http://42qu.com/auth/login",
             data = {
-                '_xsrf': self.xsrf,
+                '_xsrf': 'abc',
                 'mail': self.username,
                 'password': self.password,
             },
@@ -50,7 +41,6 @@ class _42qu(object):
             
         set_cookie = response.getheader('Set-Cookie')
         self.cookies += "; " + sc2cs(set_cookie)
-        print self.cookies
             
         return response
 
