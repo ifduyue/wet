@@ -20,7 +20,7 @@ class _42qu(object):
         response =fetch(
             "http://42qu.com/auth/login",
             data = {
-                '_xsrf': 'abc',
+                '_xsrf': self.xsrf,
                 'mail': self.username,
                 'password': self.password,
             },
