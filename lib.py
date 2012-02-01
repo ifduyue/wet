@@ -143,7 +143,7 @@ def unshortenstatus(status, regex, retries=3):
 def shurl_status(status):
     from shurl import shurl
     urls = re.findall(
-        'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', 
+        'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+~]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', 
         status,
     )
     for url in urls:
