@@ -56,11 +56,15 @@ class Fanfou(object):
         )
         return response.body
 
+_instance = None
 
 def pub2fanfou(username, password, status):
-    fanfou = Fanfou(username, password)
-    fanfou.login()
-    fanfou.update(status)
+    global _instance
+    if _instance is None:
+        fanfou = Fanfou(username, password)
+        fanfou.login()
+        _instance = fanfou
+    _instance.update(status)
 
 if __name__ == '__main__':
     import sys

@@ -49,11 +49,14 @@ class Renren(object):
         return response 
         
         
+_instance = None
 
 def pub2renren(username, password, status):
-    renren = Renren(username, password)
-    renren.login()
-    renren.update(status)
+    global _instance
+    if _instance is None:
+        renren = Renren(username, password)
+        renren.login()
+    _instance.update(status)
 
 
 if __name__ == '__main__':

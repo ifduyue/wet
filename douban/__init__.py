@@ -53,11 +53,15 @@ class Douban(object):
         )
         return response
         
+_instance = None
 
 def pub2douban(username, password, status):
-    douban = Douban(username, password)
-    douban.login()
-    douban.update(status)
+    global _instance
+    if _instance is None:
+        douban = Douban(username, password)
+        douban.login()
+        _instance = douban
+    _instance.update(status)
     
 if __name__ == '__main__':
     import sys

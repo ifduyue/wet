@@ -78,10 +78,14 @@ class Facebook(object):
         )
         return response
 
+_instance = None
 def pub2facebook(username, password, status):
-    facebook = Facebook(username, password)
-    facebook.login()
-    facebook.update(status)
+    global _instance
+    if _instance is None:
+        facebook = Facebook(username, password)
+        facebook.login()
+        _instance = facebook
+    _instance.update(status)
 
 if __name__ == '__main__':
     import sys

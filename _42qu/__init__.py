@@ -59,11 +59,15 @@ class _42qu(object):
         )
         return response
 
+_instance = None
 
 def pub2_42qu(username, password, status):
-    o = _42qu(username, password)
-    o.login()
-    o.update(status)
+    global _instance
+    if _instance is None:
+        o = _42qu(username, password)
+        o.login()
+        _instance = o
+    _instance.update(status)
 
 if __name__ == '__main__':
     import sys
