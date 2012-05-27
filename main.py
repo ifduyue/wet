@@ -12,6 +12,8 @@ def twitter2all():
     prevtime = load_prev_time(conf.twitter_user)
     statuses = get_twitter_status(conf.twitter_user, prevtime)
     
+    if not statuses: return
+    
     if prevtime is None:
         log("first time fetch %s's tweets, skip", conf.twitter_user)
         save_prev_time(conf.twitter_user, statuses[-1][1])
