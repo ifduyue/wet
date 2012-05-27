@@ -11,6 +11,9 @@ unshorten_prefix = [
 # this make sure the status is less than 140 characters
 use_shurl = True
 
+#including status which meets the conditions. Set include = False to turn it off.
+include = False
+
 #excluding status which starts with i, for i in exclude
 exclude = list('@.')
 

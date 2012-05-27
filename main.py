@@ -19,8 +19,19 @@ def twitter2all():
     
     maxtime = prevtime
     for status, pubdate in statuses:
-        if status[0] in conf.exclude:
-            continue
+        if conf.exclude:
+            if status[0] in conf.exclude:
+                continue
+                
+        if conf.include:
+            to_include = False
+            for i in conf.include:
+                if status.find(i) != -1:
+                    to_include = True
+                    break
+            if not to_include:
+                continue
+
         log("[publishing] %s : %s",
             pubdate,
             status,
