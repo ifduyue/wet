@@ -1,4 +1,8 @@
 #coding: utf8
+
+import re
+re_type = type(re.compile('foo'))
+
 #short url starts with i, for i in unshorten_prefix, will be unshortened
 unshorten_prefix = [
     'http://t.co/',
@@ -11,11 +15,13 @@ unshorten_prefix = [
 # this make sure the status is less than 140 characters
 use_shurl = True
 
-#including status which meets the conditions. Set include = False to turn it off.
-include = False
+# including status which meets the conditions in `include tuple`
+# leave empty to turn this feature off
+include = ()
 
-#excluding status which starts with i, for i in exclude
-exclude = list('@.')
+# excluding status which meets the conditions in `exclude tuple`
+# leave empty to turn this feature off
+exclude = (re.compile(r'^\.'), re.compile(r'^@'), )
 
 '''
 feeds example:
