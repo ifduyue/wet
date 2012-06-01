@@ -6,6 +6,7 @@ from lib import *
 import re
 import urllib
 from urlfetch import get
+import time
 
 from conf import unshorten_prefix, use_shurl
 unshorten_re = []
@@ -20,7 +21,7 @@ def get_twitter_status(username, prevtime=None):
     from datetime import datetime
     ptime = prevtime if prevtime is not None else False
         
-    url = 'http://twitter.com/statuses/user_timeline/%s.rss' %  username
+    url = 'http://twitter.com/statuses/user_timeline/%s.rss?r=%d' %  (username, time.time())
     try:
         data = get(url).body
     except: return []
