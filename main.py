@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #coding: utf8
 import conf
+from conf import re_type
 from lib import *
 from log import log
 from time import sleep, gmtime, strftime
