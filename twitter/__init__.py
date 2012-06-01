@@ -40,7 +40,7 @@ def get_twitter_status(username, prevtime=None):
     prefix_len = len(prefix)
     for i in lst:
         try:
-            status = decodeHtmlentities(mb_code(desc[i].childNodes[0].data))
+            status = mb_code(decodeHtmlentities(desc[i].childNodes[0].data))
             if status.startswith(prefix): status = status[prefix_len:]
         except: continue
         pubdate = mb_code(date[i].childNodes[0].data)
