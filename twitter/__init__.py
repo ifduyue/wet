@@ -5,7 +5,6 @@ sys.path.insert(0, '..')
 from lib import *
 import re
 import urllib
-import pycurl
 from urlfetch import get
 
 from conf import unshorten_prefix, use_shurl
