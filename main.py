@@ -42,6 +42,9 @@ def can_pub(status):
                 to_include = True
                 break
 
+    if not conf.include:
+        to_include = True
+
     if not to_include:
         return False
 
