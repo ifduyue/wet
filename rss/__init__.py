@@ -24,10 +24,8 @@ def get_rss_entries(url, prevtime=None):
             content = ''
 
         publishtime = getattr(
-            e, 'published_parsed', 
-            getattr(
-                e, 'updated_parsed', 
-                time.strptime('1988-10-25', '%Y-%m-%d')
+            e, 'published_parsed',  getattr(
+                e, 'updated_parsed', None,
             )
         )
 
@@ -40,7 +38,7 @@ def get_rss_entries(url, prevtime=None):
         for i in e:
             msg[i] = mb_code(e[i]) if isinstance(e[i], basestring) else e[i]
         
-        if prevtime is None or publishtime > prevtime:
+        if prevtime is None or publishtime is None or publishtime > prevtime:
             statuses.append((msg, publishtime))            
     
     return statuses

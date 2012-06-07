@@ -102,15 +102,15 @@ def feeds2all():
                 continue
             
             log("[publishing] %s : %s",
-                strftime("%Y-%m-%d %H:%M:%S", publishtime),
+                strftime("%Y-%m-%d %H:%M:%S", publishtime) if publishtime is not None else 'None',
                 status,
             )
 
-            if pub2all(status) and maxtime < publishtime:
+            if pub2all(status) and publishtime is not None and maxtime < publishtime:
                 maxtime = publishtime
                 sleep(10)
             
-        lasttimes[url] = maxtime
+        lasttimes[url] = maxtime if maxtime != lasttime else gmtime()
         save_rss_lasttimes(lasttimes)
 
 if __name__ == '__main__':
