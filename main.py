@@ -65,6 +65,7 @@ def twitter2all():
     for status, pubdate in statuses:
 
         if not can_pub(status):
+            log("[skipping] %s can not be published because of include and exlucde conf", status)
             continue
 
         log("[publishing] %s : %s",
@@ -76,6 +77,8 @@ def twitter2all():
             maxtime = pubdate
             sleep(10)
     save_prev_time(conf.twitter_user, maxtime)
+    
+
         
 def feeds2all():
     from rss import get_rss_entries
@@ -96,13 +99,15 @@ def feeds2all():
         statuses = get_rss_entries(url, lasttime)
         maxtime = lasttime
         
-        for status, publishtime in statuses:
-            status = format_ % status
+        for entry, publishtime in statuses:
+            status = format_ % entry
 
             if not can_pub(status):
+                log("[skipping] %s can not be published because of include and exlucde conf", status)
                 continue
 
-            if status in lasttimes['entries_' + url]:
+            if entry in lasttimes['entries_' + url]:
+                log("[skipping] %s can not be published because it has already bean published",  status)
                 continue
 
             log("[publishing] %s : %s",
@@ -114,7 +119,7 @@ def feeds2all():
                 if publishtime is not None and maxtime < publishtime:
                     maxtime = publishtime
                 
-                lasttimes['entries_' + url].append(status)
+                lasttimes['entries_' + url].append(entry)
 
                 sleep(10)
             
