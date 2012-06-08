@@ -111,7 +111,7 @@ def feeds2all():
                 log("[skipping] %s can not be published because of include and exlucde conf", status)
                 continue
 
-            if entry in lasttimes['entries_' + url]:
+            if entry['link'] in lasttimes['links_' + url]:
                 log("[skipping] %s can not be published because it has already bean published",  status)
                 continue
 
