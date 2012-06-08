@@ -90,7 +90,7 @@ def feeds2all():
     if lasttimes is None:
         lasttimes = {}
         
-    for format_, url in conf.feeds:
+    for feed in conf.feeds:
         format_, url = feed[0:2]
         nhead = feed[2] if feed[2:] else 0
         lasttime = lasttimes.get(url, None)
