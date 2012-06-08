@@ -97,7 +97,7 @@ def feeds2all():
         if lasttime is None:
             log("first time fetching %s, skip", url)
             lasttimes[url] = gmtime()
-            lasttimes['entries_' + url] = []
+            lasttimes['links_' + url] = []
             save_rss_lasttimes(lasttimes)
             continue
         
@@ -124,12 +124,12 @@ def feeds2all():
                 if publishtime is not None and maxtime < publishtime:
                     maxtime = publishtime
                 
-                lasttimes['entries_' + url].append(entry)
+                lasttimes['links_' + url].append(entry['link'])
 
                 sleep(10)
             
         lasttimes[url] = maxtime if maxtime != lasttime else gmtime()
-        lasttimes['entries_' + url] = lasttimes['entries_' + url][-100:]
+        lasttimes['links_' + url] = lasttimes['links_' + url][-100:]
 
         save_rss_lasttimes(lasttimes)
 
