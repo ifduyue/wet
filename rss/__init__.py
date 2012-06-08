@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding: utf8
 
-def get_rss_entries(url, prevtime=None):
+def get_rss_entries(url, prevtime=None, nhead=0):
     import feedparser
     import sys
     import time
@@ -41,10 +41,15 @@ def get_rss_entries(url, prevtime=None):
         if prevtime is None or publishtime is None or publishtime > prevtime:
             statuses.append((msg, publishtime))            
     
+    if nhead > 0:
+        statuses = statuses[:nhead]
+
     return statuses
 
 
 if __name__ == '__main__':
     import sys
-    for msg, publishtime in get_rss_entries(sys.argv[1]):
+    nhead = int(sys.argv[2]) if len(sys.argv) >= 2 else 0
+    for msg, publishtime in get_rss_entries(sys.argv[1], None, nhead):
         print msg['title'], msg['url'], msg['content']
+        print msg['comments']

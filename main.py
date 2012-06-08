@@ -91,6 +91,8 @@ def feeds2all():
         lasttimes = {}
         
     for format_, url in conf.feeds:
+        format_, url = feed[0:2]
+        nhead = feed[2] if feed[2:] else 0
         lasttime = lasttimes.get(url, None)
         if lasttime is None:
             log("first time fetching %s, skip", url)
@@ -99,7 +101,7 @@ def feeds2all():
             save_rss_lasttimes(lasttimes)
             continue
         
-        statuses = get_rss_entries(url, lasttime)
+        statuses = get_rss_entries(url, lasttime, nhead=nhead)
         maxtime = lasttime
         
         for entry, publishtime in statuses:
