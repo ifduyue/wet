@@ -4,7 +4,7 @@
 from lib import *
 from log import log
 
-def pub2all(status):
+def pub2all(status, entry=None):
     from renren import pub2renren
     from sina import pub2sina
     from douban import pub2douban
@@ -12,6 +12,7 @@ def pub2all(status):
     from qq import pub2qq
     from fanfou import pub2fanfou
     from _42qu import pub2_42qu
+    from v2ex import pub2v2ex
     import conf
     
     flag = False
@@ -64,6 +65,20 @@ def pub2all(status):
             flag = True
         except Exception, e:
             log('[pub2_42qu error][%s] %s', e, status)
+
+    if conf.v2ex_user and conf.v2ex_passwd:
+        if entry is None:
+            title = status
+            content = ''
+        else:
+            title = entry['title']
+            content = status
+
+        try:
+            pub2v2ex(conf.v2ex_user, conf.v2ex_passwd, title, content)
+            flag = True
+        except Exception, e:
+            log('[pub2v2ex error][%s] %s', e, status)
 
     return flag
 

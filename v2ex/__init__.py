@@ -25,13 +25,16 @@ class V2ex(object):
 
 _instance = None
 
-def pub2v2ex(username, password, status):
+def pub2v2ex(username, password, title, content='', node=None):
     global _instance
     if _instance is None:
         v2ex = V2ex(username, password)
         v2ex.login()
         _instance = v2ex
-    _instance.update(status)
+    if node is not None
+        _instance.update(title, content, node)
+    else:
+        _instance.update(title, content)
 
 if __name__ == '__main__':
     import sys

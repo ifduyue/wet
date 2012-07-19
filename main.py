@@ -120,7 +120,7 @@ def feeds2all():
                 status,
             )
 
-            if pub2all(status):
+            if pub2all(status, entry):
                 if publishtime is not None and maxtime < publishtime:
                     maxtime = publishtime
                 
