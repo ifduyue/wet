@@ -31,7 +31,7 @@ def pub2v2ex(username, password, title, content='', node=None):
         v2ex = V2ex(username, password)
         v2ex.login()
         _instance = v2ex
-    if node is not None
+    if node is not None:
         _instance.update(title, content, node)
     else:
         _instance.update(title, content)
