@@ -75,7 +75,7 @@ def pub2all(status, entry=None):
             content = status
 
         try:
-            pub2v2ex(conf.v2ex_user, conf.v2ex_passwd, title, content)
+            pub2v2ex(conf.v2ex_user, conf.v2ex_passwd, title, content, conf.v2ex_node)
             flag = True
         except Exception, e:
             log('[pub2v2ex error][%s] %s', e, status)
