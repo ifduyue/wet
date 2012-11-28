@@ -21,7 +21,7 @@ def get_twitter_status(username, prevtime=None):
     from datetime import datetime
     ptime = prevtime if prevtime is not None else False
         
-    url = 'http://twitter.com/statuses/user_timeline/%s.rss?r=%d' %  (username, time.time())
+    url = 'https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=%s' % (username)
     try:
         data = get(url).body
     except: return []
